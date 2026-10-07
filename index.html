@@ -3,191 +3,857 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SKYVIEW ONLINE CINEMA – Movie Links</title>
+
+<title>SKYVIEW ONLINE CINEMA</title>
 
 <style>
-  body {
-    margin: 0;
-    background: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#070707;
+  color:#fff;
+}
+
+header{
+  padding:22px 6%;
+  border-bottom:1px solid #222;
+  background:#0b0b0b;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.logo span{
+  color:#ff6a00;
+}
+
+.container{
+  width:88%;
+  max-width:1200px;
+  margin:auto;
+}
+
+.hero{
+  padding:70px 0 55px;
+}
+
+.hero small{
+  color:#ff6a00;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.hero h1{
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  margin:16px 0 20px;
+  max-width:850px;
+}
+
+.hero h1 span{
+  color:#ff6a00;
+}
+
+.hero p{
+  max-width:600px;
+  color:#999;
+  font-size:16px;
+}
+
+.section{
+  padding:10px 0 70px;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.section-title h2{
+  font-size:27px;
+}
+
+.count{
+  color:#777;
+  font-size:13px;
+}
+
+.movie-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+}
+
+.movie{
+  background:#101010;
+  border:1px solid #242424;
+  border-radius:14px;
+  overflow:hidden;
+  transition:.25s;
+}
+
+.movie:hover{
+  transform:translateY(-4px);
+  border-color:#ff6a00;
+}
+
+.poster{
+  height:390px;
+  position:relative;
+  background:#151515;
+  overflow:hidden;
+}
+
+.poster img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.quality{
+  position:absolute;
+  right:14px;
+  top:14px;
+  background:#ff6a00;
+  padding:6px 10px;
+  border-radius:5px;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.info{
+  padding:20px;
+}
+
+.info h3{
+  font-size:20px;
+  margin-bottom:5px;
+}
+
+.meta{
+  color:#777;
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+.copy{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:7px;
+  background:#ff6a00;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.copy:hover{
+  background:#ff7924;
+}
+
+.copied{
+  display:none;
+  text-align:center;
+  color:#4edb6a;
+  font-size:12px;
+  margin-top:8px;
+}
+
+
+/* GUIDE */
+
+.guide{
+  border-top:1px solid #222;
+  border-bottom:1px solid #222;
+  background:#0c0c0c;
+  padding:65px 0;
+}
+
+.guide h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.guide-intro{
+  color:#888;
+  margin-bottom:30px;
+}
+
+.devices{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.device{
+  background:#111;
+  border:1px solid #242424;
+  border-radius:12px;
+  padding:24px;
+}
+
+.device h3{
+  font-size:18px;
+  margin-bottom:10px;
+}
+
+.device p{
+  color:#888;
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.device a{
+  display:block;
+  text-align:center;
+  background:#ff6a00;
+  color:#fff;
+  text-decoration:none;
+  padding:12px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.device ol{
+  padding-left:18px;
+  color:#999;
+  font-size:13px;
+}
+
+.device li{
+  margin-bottom:7px;
+}
+
+
+/* WHATSAPP */
+
+.whatsapp{
+  text-align:center;
+  padding:45px 0;
+}
+
+.whatsapp p{
+  color:#888;
+  margin-bottom:17px;
+}
+
+.whatsapp a{
+  display:inline-block;
+  background:#25d366;
+  color:#fff;
+  text-decoration:none;
+  padding:13px 25px;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid #222;
+  text-align:center;
+  padding:25px;
+  color:#666;
+  font-size:12px;
+}
+
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#fff;
+  color:#111;
+  padding:12px 20px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:bold;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:999;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+
+@media(max-width:600px){
+
+  header{
+    padding:20px 5%;
   }
 
-  header {
-    padding: 15px;
-    background: #111;
-    text-align: center;
-    border-bottom: 1px solid #222;
+  .container{
+    width:90%;
   }
 
-  header h1 {
-    margin: 0;
-    color: #ff9800;
-    font-size: 22px;
+  .hero{
+    padding:60px 0 45px;
   }
 
-  header p {
-    font-size: 13px;
-    color: #ccc;
+  .poster{
+    height:430px;
   }
 
-  .container {
-    padding: 15px;
-    max-width: 600px;
-    margin: auto;
-  }
-
-  .movie {
-    background: #121212;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.6);
-    transition: transform 0.2s ease;
-  }
-
-  .movie:hover {
-    transform: translateY(-3px);
-  }
-
-  .movie h2 {
-    margin: 0 0 8px;
-    font-size: 17px;
-    color: #00e676;
-  }
-
-  .movie span {
-    font-size: 13px;
-    color: #aaa;
-  }
-
-  .copy-btn {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(90deg, #007bff, #00d4ff);
-    border: none;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 15px;
-    cursor: pointer;
-  }
-
-  .copy-btn:hover {
-    background: linear-gradient(90deg, #00d4ff, #007bff);
-  }
-
-  .copied {
-    font-size: 12px;
-    color: #00e676;
-    margin-top: 6px;
-    display: none;
-  }
-
-  .app-box, .whatsapp-box {
-    border-radius: 10px;
-    padding: 15px;
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .app-box {
-    background: #0f1720;
-    border: 1px solid #007bff;
-  }
-
-  .whatsapp-box {
-    background: #0b1f14;
-    border: 1px solid #1db954;
-  }
-
-  .app-box h3 {
-    color: #4da3ff;
-  }
-
-  .whatsapp-box h3 {
-    color: #1db954;
-  }
-
-  .app-btn, .whatsapp-btn {
-    display: inline-block;
-    padding: 12px 18px;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 15px;
-  }
-
-  .app-btn {
-    background: linear-gradient(90deg, #007bff, #00d4ff);
-    color: #fff;
-  }
-
-  .whatsapp-btn {
-    background: linear-gradient(90deg, #1db954, #00ff7f);
-    color: #000;
-  }
-
-  footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 12px;
-    color: #777;
-  }
+}
 </style>
 </head>
 
+
 <body>
 
+
+<!-- HEADER -->
+
 <header>
-  <h1>🎬 SKYVIEW ONLINE CINEMA</h1>
-  <p>COPY LINK • PASTE IN STREAM APP</p>
+
+  <div class="container">
+
+    <div class="logo">
+      SKYVIEW <span>ONLINE CINEMA</span>
+    </div>
+
+  </div>
+
 </header>
 
-<div class="container">
 
-  <!-- Vantage Point (FIRST) -->
-  <div class="movie">
-    <h2>LOVE HYPOTHESIS</h2>
-    <span>•Romance</span>
-    <button class="copy-btn" onclick="copyLink('https://streamtape.com/v/XYOlyPqRPATDlO1/The.Love.Hypothesis.2026.1080p.WEBRip.x265.10bit.AAC5.1-%5BYTS.GG_-_YTS.BZ%5D.mp4', this)">
-      COPY LINK
-    </button>
-    <div class="copied">Link copied!</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <small>SKYVIEW ONLINE CINEMA</small>
+
+    <h1>
+      Download Brave.<br>
+      <span>Copy link. Paste. Stream.</span>
+    </h1>
+
+    <p>
+      Use Brave browser to stream and download movie.
+      Copy the movie link below and paste it directly into Brave.
+    </p>
+
   </div>
 
-  <!-- Stream App -->
-  <div class="app-box">
-    <h3>📥 Stream App</h3>
-    <a class="app-btn" href="https://drive.google.com/file/d/1Zi8S1eQ7PMzURSLfz9DcSyo9IXpfPiJ7/view?usp=sharing" target="_blank">
-      Click to Download Stream App
+</section>
+
+
+
+<!-- MOVIES -->
+
+<section class="section">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>Available Movie</h2>
+
+      <div
+        class="count"
+        id="count"
+      ></div>
+
+    </div>
+
+
+    <div
+      class="movie-grid"
+      id="movieGrid"
+    ></div>
+
+  </div>
+
+</section>
+
+
+
+<!-- GUIDE -->
+
+<section class="guide">
+
+  <div class="container">
+
+    <h2>How to Watch</h2>
+
+    <p class="guide-intro">
+      Download Brave Browser, then copy the movie link and paste it into Brave.
+    </p>
+
+
+    <div class="devices">
+
+
+      <!-- ANDROID -->
+
+      <div class="device">
+
+        <h3>📱 Android</h3>
+
+        <p>
+          Watch on Android phones and tablets using Brave Browser.
+        </p>
+
+        <a
+          href="https://play.google.com/store/apps/details?id=com.brave.browser"
+          target="_blank"
+          rel="noopener"
+        >
+          DOWNLOAD BRAVE FOR ANDROID
+        </a>
+
+        <ol>
+
+          <li>Install Brave Browser.</li>
+
+          <li>Return to this website.</li>
+
+          <li>Tap COPY LINK on the movie.</li>
+
+          <li>Open Brave Browser.</li>
+
+          <li>Paste the copied link into the address bar.</li>
+
+          <li>Open the page and play or download where available.</li>
+
+        </ol>
+
+      </div>
+
+
+
+      <!-- IPHONE -->
+
+      <div class="device">
+
+        <h3>🍎 iPhone / iPad</h3>
+
+        <p>
+          Watch on iPhone and iPad using Brave Browser.
+        </p>
+
+        <a
+          href="https://apps.apple.com/app/brave-private-web-browser/id1052879175"
+          target="_blank"
+          rel="noopener"
+        >
+          DOWNLOAD BRAVE FOR iPHONE
+        </a>
+
+        <ol>
+
+          <li>Install Brave Browser.</li>
+
+          <li>Return to this website.</li>
+
+          <li>Tap COPY LINK on the movie.</li>
+
+          <li>Open Brave Browser.</li>
+
+          <li>Paste the copied link.</li>
+
+          <li>Open the page and play or download where available.</li>
+
+        </ol>
+
+      </div>
+
+
+
+      <!-- COMPUTER -->
+
+      <div class="device">
+
+        <h3>💻 Computer</h3>
+
+        <p>
+          Watch on Windows, Mac or other supported computers.
+        </p>
+
+        <a
+          href="https://brave.com/download/"
+          target="_blank"
+          rel="noopener"
+        >
+          DOWNLOAD BRAVE FOR COMPUTER
+        </a>
+
+        <ol>
+
+          <li>Download and install Brave.</li>
+
+          <li>Return to this website.</li>
+
+          <li>Click COPY LINK on the movie.</li>
+
+          <li>Open Brave Browser.</li>
+
+          <li>Paste the copied link.</li>
+
+          <li>Open the page and play or download where available.</li>
+
+        </ol>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- WHATSAPP -->
+
+<section class="whatsapp">
+
+  <div class="container">
+
+    <p>
+      Need help or looking for a movie?
+    </p>
+
+    <a
+      href="https://wa.me/256705840278"
+      target="_blank"
+      rel="noopener"
+    >
+      WHATSAPP 0705840278
     </a>
-    <p>Copy movie link → Paste in app → Watch or download</p>
+
   </div>
 
-  <!-- WhatsApp -->
-  <div class="whatsapp-box">
-    <h3>📩 Movie Requests</h3>
-    <a class="whatsapp-btn" href="https://wa.me/256705840278" target="_blank">
-      WhatsApp 0705840278
-    </a>
-  </div>
+</section>
 
-</div>
+
+
+<!-- FOOTER -->
 
 <footer>
-  © SKYVIEW CINEMA • COPY ONLY • NO STREAMING HERE
+
+  © SKYVIEW ONLINE CINEMA • MOVIE LINK LIBRARY
+
 </footer>
 
+
+
+<!-- TOAST -->
+
+<div
+  class="toast"
+  id="toast"
+>
+  Movie link copied!
+</div>
+
+
+
 <script>
-  function copyLink(link, btn) {
-    navigator.clipboard.writeText(link).then(() => {
-      const msg = btn.nextElementSibling;
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 2000);
-    });
+
+
+/* ==========================================
+   MOVIES
+
+   Put ANY URL you want copied inside "link"
+========================================== */
+
+
+const movies = [
+
+  {
+    title: "LOVE HYPOTHESIS",
+
+    quality: "1080p",
+
+    category: "Romance",
+
+    poster:
+      "https://s.movieinsider.com/images/the-love-hypothesis/p/600//1021964_m1789867143.jpg",
+
+    link:
+      "https://stape.me/v/XYOlyPqRPATDlO1/The.Love.Hypothesis.2026.1080p.WEBRip.x265.10bit.AAC5.1-%5BYTS.GG_-_YTS.BZ%5D.mp4"
   }
+
+];
+
+
+
+/* ==========================================
+   PAGE ELEMENTS
+========================================== */
+
+
+const grid =
+  document.getElementById("movieGrid");
+
+const count =
+  document.getElementById("count");
+
+const toast =
+  document.getElementById("toast");
+
+
+
+/* ==========================================
+   ESCAPE TEXT
+========================================== */
+
+
+function esc(value){
+
+  return String(value).replace(
+    /[&<>"']/g,
+
+    function(character){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[character];
+
+    }
+
+  );
+
+}
+
+
+
+/* ==========================================
+   RENDER MOVIES
+========================================== */
+
+
+function render(list){
+
+  grid.innerHTML = "";
+
+  count.textContent =
+    list.length +
+    " movie" +
+    (list.length === 1 ? "" : "s");
+
+
+  list.forEach(function(movie){
+
+    const index =
+      movies.indexOf(movie);
+
+    const card =
+      document.createElement("article");
+
+    card.className =
+      "movie";
+
+
+    card.innerHTML = `
+
+      <div class="poster">
+
+        ${
+          movie.poster
+
+          ?
+
+          `<img
+            src="${esc(movie.poster)}"
+            alt="${esc(movie.title)}"
+          >`
+
+          :
+
+          "🎬"
+        }
+
+        <span class="quality">
+          ${esc(movie.quality)}
+        </span>
+
+      </div>
+
+
+      <div class="info">
+
+        <h3>
+          ${esc(movie.title)}
+        </h3>
+
+        <div class="meta">
+          ${esc(movie.category)}
+        </div>
+
+
+        <button
+          class="copy"
+          onclick="copyLink(${index},this)"
+        >
+          COPY LINK
+        </button>
+
+
+        <div class="copied">
+          Link copied!
+        </div>
+
+      </div>
+
+    `;
+
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+
+/* ==========================================
+   COPY LINK
+
+   NO AUTHORIZATION CHECK
+   NO STREAMTAPE CHECK
+   COPIES WHATEVER IS IN movies[].link
+========================================== */
+
+
+async function copyLink(index,button){
+
+  const link =
+    movies[index].link;
+
+
+  if(!link){
+
+    showToast("Movie link is missing");
+
+    return;
+
+  }
+
+
+  try{
+
+    await navigator.clipboard.writeText(link);
+
+  }
+
+  catch(error){
+
+    const textarea =
+      document.createElement("textarea");
+
+    textarea.value =
+      link;
+
+    textarea.style.position =
+      "fixed";
+
+    textarea.style.opacity =
+      "0";
+
+    document.body.appendChild(textarea);
+
+    textarea.focus();
+
+    textarea.select();
+
+    document.execCommand("copy");
+
+    textarea.remove();
+
+  }
+
+
+  const copied =
+    button.nextElementSibling;
+
+  copied.style.display =
+    "block";
+
+
+  showToast(
+    "Movie link copied!"
+  );
+
+
+  setTimeout(function(){
+
+    copied.style.display =
+      "none";
+
+  },2200);
+
+}
+
+
+
+/* ==========================================
+   TOAST
+========================================== */
+
+
+function showToast(message){
+
+  toast.textContent =
+    message;
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  setTimeout(function(){
+
+    toast.classList.remove(
+      "show"
+    );
+
+  },1800);
+
+}
+
+
+
+/* ==========================================
+   START
+========================================== */
+
+
+render(movies);
+
 </script>
+
 
 </body>
 </html>
